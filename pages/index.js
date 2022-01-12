@@ -20,8 +20,8 @@ export default function Home({posts}) {
 			</Head>
 			<Header/>
 			<main className='flex' >
-				<Sidebar/>
-				<Feed posts={posts} />
+				<Sidebar session={session}/>
+				<Feed session={session} posts={posts} />
 				<Widgets />
 			</main>
 		</div>

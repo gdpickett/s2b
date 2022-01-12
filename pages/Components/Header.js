@@ -39,6 +39,10 @@ function Header() {
                 </div>
             </div>
         )
+    }else{
+        return(
+            <div></div>
+        )
     }
 }
 

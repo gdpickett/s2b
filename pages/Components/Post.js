@@ -1,10 +1,11 @@
 import Image from "next/image"
 import { ChatAltIcon, ShareIcon, ThumbUpIcon } from '@heroicons/react/outline'
+import 'firebase/firestore'
 
 function Post({ key, name, message, image, postImage, timestamp }) {
-    const cDate = timestamp.toDate();
-    let curDate = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(cDate)
-
+    const d = timestamp && timestamp.toDate()
+    let curDate = new Intl.DateTimeFormat('en-US', { weekday:'long', year: 'numeric', month: 'long', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' }).format(d)
+    
     return (
         <>
             <div key={key} >

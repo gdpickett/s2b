@@ -1,4 +1,4 @@
-import { useSession } from "next-auth/react";
+//import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { EmojiHappyIcon } from '@heroicons/react/outline';
 import { CameraIcon, VideoCameraIcon } from '@heroicons/react/solid';
@@ -10,19 +10,18 @@ const metadata = {
     contentType: 'image/jpeg'
 };
 
-
-function InputBox() {
-    const { data: session } = useSession();
+function InputBox({ session }) {
+    //const { data: session } = useSession();
     const inputRef = useRef(null);
     const filePickerRef = useRef(null);
     const [imageToPost, setImageToPost] = useState(null);
-
+    
     const sendPost = async (e) => {
         e.preventDefault();
 
-        if (!inputRef.current.value) return;
-        console.log(inputRef.current.value)
-        
+        if (!inputRef.current.value) return;  
+        if (!session.user) return;      
+        /*
         db.collection('posts').add({
             message: inputRef.current.value,
             name: session.user.name,
@@ -45,6 +44,7 @@ function InputBox() {
                 })
             }
         })
+        */
 
         inputRef.current.value = '';
     }
@@ -69,12 +69,16 @@ function InputBox() {
 
         <div className="bg-white p-2 rounded-2xl shadow-md text-gray-500 font-medium mt-6">
             <div className="flex space-x-4 p-4 items-center">
-                <Image className="rounded-full" src={session.user.image}
-                    width={40} height={40} layout="fixed" alt='profile_pic' />
-                <form className="flex flex-1">
-                    <input className='rounded-full h-12 bg-gray-100 flex-grow px-5 focus:outline-none' ref={inputRef} type='text' placeholder={`What's on your mind, ${session.user.name}?`} />
-                    <button hidden type="submit" onClick={sendPost}>Submit</button>
-                </form>
+
+                {/*session.user &&
+                    <>
+                        <Image className="rounded-full" src={session.user.image}
+                            width={40} height={40} layout="fixed" alt='profile_pic' />
+                        <form className="flex flex-1">
+                            <input className='rounded-full h-12 bg-gray-100 flex-grow px-5 focus:outline-none' ref={inputRef} type='text' placeholder={`What's on your mind, ${session.user.name}?`} />
+                            <button hidden type="submit" onClick={sendPost}>Submit</button>
+                        </form>
+                */}
 
                 {imageToPost &&
                     <div onClick={removeImage} className="flex flex-col filter hover:brightness-110 transition duration-150 transform hover: scale-105 cursor-pointer">
