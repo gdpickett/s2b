@@ -7,7 +7,7 @@ function Login() {
         <div className="grid place-items-center">
             <Image src={glam} height={400} width={400} objectFit="contain" alt='logo'/>
             <h1 className="p-5 bg-blue-500 rounded-full text-white text-center cursor-pointer"
-                onClick={signIn}>Login with Facebook</h1>
+                onClick={signIn}>Login Options</h1>
         </div>
     )
 }

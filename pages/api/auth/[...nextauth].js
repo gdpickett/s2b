@@ -1,6 +1,7 @@
 import NextAuth from 'next-auth';
 import { getToken } from "next-auth/jwt"
 import FacebookProvider from 'next-auth/providers/facebook'
+import GoogleProvider from 'next-auth/providers/google'
 
 export default NextAuth({
     providers: [
@@ -8,6 +9,10 @@ export default NextAuth({
         FacebookProvider({
           clientId: process.env.FACEBOOK_ID,
           clientSecret: process.env.FACEBOOK_SECRET
+        }),
+        GoogleProvider({
+          clientId: process.env.GOOGLE_CLIENT_ID,
+          clientSecret: process.env.GOOGLE_CLIENT_SECRET
         })
     ],
     secret: process.env.SECRET,
