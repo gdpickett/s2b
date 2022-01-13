@@ -2,6 +2,7 @@ import NextAuth from 'next-auth';
 import { getToken } from "next-auth/jwt"
 import FacebookProvider from 'next-auth/providers/facebook'
 import GoogleProvider from 'next-auth/providers/google'
+import TwitterProvider from 'next-auth/providers/twitter'
 
 export default NextAuth({
     providers: [
@@ -13,7 +14,7 @@ export default NextAuth({
         GoogleProvider({
           clientId: process.env.GOOGLE_CLIENT_ID,
           clientSecret: process.env.GOOGLE_CLIENT_SECRET
-        })
+        }),
     ],
     secret: process.env.SECRET,
     session: {
@@ -21,7 +22,7 @@ export default NextAuth({
   
       maxAge: 30 * 24 * 60 * 60, // 30 days
       updateAge: 24 * 60 * 60, // 24 hours
-    },
+    },/*
     jwt: {
       // A secret to use for key generation. Defaults to the top-level `secret`.
       secret: process.env.SECRET,
@@ -32,6 +33,6 @@ export default NextAuth({
       // if you want to override the default behavior.
       async encode({ secret, token, maxAge }) {},
       async decode({ secret, token }) {},
-    },
+    },*/
     debug: true,
 })
