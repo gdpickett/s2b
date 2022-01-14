@@ -32,7 +32,7 @@ const firebaseConfig = {
 
 //import {admin} from "firebase-admin";
 
-var serviceAccount = require("./s2bfb-40f12fire.json");
+//var serviceAccount = require("./s2bfb-40f12fire.json");
 
 /*
 admin.initializeApp({
