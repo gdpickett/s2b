@@ -15,18 +15,18 @@ function FacebookLoginComponent({ session }) {
             setLogin(false);
             //props.callback = response;
             //return false;
-            return response;
+            return 'Fail '+response;
         }
         //setData(response);
         //setPicture(response.picture.data.url);
         if (response.accessToken) {
             setLogin(true);
             //this.props.callback = response;
-            return response;
+            return 'token'+ response;
         } else {
             setLogin(false);
             this.props.callback = response;
-            return response;
+            return 'login fail '+response;
         }
     };
     const logout = () => {
