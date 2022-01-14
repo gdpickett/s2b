@@ -59,7 +59,8 @@ export async function getServerSideProps(context, fbCallback) {
 	//const querySnapshot = await getDocs(collection(db, 'posts'));
 	//const posts = await collection(db, "posts");
 	const posts = await getDocs(collection(db, 'posts'));
-	console.log('serverprops '+fbCallback);
+
+	if(fbCallback) return console.log('serverprops '+fbCallback);
 	
 	const docs = await posts.docs.map((post)=>({
 		id: post.id,
