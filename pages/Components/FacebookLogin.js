@@ -8,26 +8,28 @@ function FacebookLoginComponent({ session }, props) {
     const [picture, setPicture] = useState("");
 
     const responseFacebook = (response) => {
-        console.log(response);
+        //console.log(response);
         // Login failed
         if (response.status === "unknown") {
-            alert("Login failed!");
+            //alert("Login failed!");
             setLogin(false);
             //props.callback = response;
-            console.log(data)
+            //console.log('data failed '+data)
+            console.log('response failed '+JSON.stringify(response))
             //return false;
-            return 'Fail '+data;
+            return response;
         }
         //setData(response);
         //setPicture(response.picture.data.url);
         if (response.accessToken) {
+            console.log('access token '+response)
             setLogin(true);
             //this.props.callback = response;
-            return 'token'+ data;
+            return response;
         } else {
             setLogin(false);
-            props.callback = response;
-            return 'login fail '+data;
+            props.callback = JSON.stringify(response);
+            return response;
         }
     };
     const logout = () => {

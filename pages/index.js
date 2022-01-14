@@ -7,28 +7,87 @@ import Feed from './Components/Feed'
 import Widgets from './Components/Widgets'
 import { db } from '../firebase';
 import { collection, getDocs } from "firebase/firestore";
-import { FacebookLogin  } from 'react-facebook-login'
-import FacebookLoginComponent from './Components/FacebookLogin'
+import { FacebookLogin } from 'react-facebook-login'
+//import FacebookLogin from 'react-facebook-login'
 import { useState } from 'react'
+import Image from 'next/image'
 
 export default function Home({ posts }) {
-	const { data: session } = useSession()
-	const [ fbCallback, setfbCallback ] = useState(null)
+	const [fbCallback, setfbCallback] = useState(null)
 
-	const handleCallback = (childData) =>{
-        this.setfbCallback( childData )
-		console.log(JSON.stringify(childData)+' childData')
-    }
+	const handleCallback = (childData) => {
+		this.setfbCallback(childData)
+		console.log('childData' + JSON.stringify(childData))
+	}
+
+	const { data: session } = handleCallback
+
+	const [login, setLogin] = useState(false);
+	const [data, setData] = useState({});
+	const [picture, setPicture] = useState('');
+
+	const responseFacebook = (response) => {
+		console.log(response);
+		setData(response);
+		setPicture(response.picture.data.url);
+		if (response.accessToken) {
+			setLogin(true);
+		} else {
+			setLogin(false);
+		}
+	}
 
 	//console.log(session);
-	if (!session) return (
-		<>
-			<Login />
-			<FacebookLoginComponent session={session} callback={handleCallback} />
-		</>
-	)
+	if (!data) {
+		if (!session) return (
+			<>
+				<Login />
+				{!login && (
+					<FacebookLogin
+						appId="622758242165850"
+						autoLoad={false}
+						fields="name,email,picture"
+						scope="public_profile,email,user_friends"
+						callback={responseFacebook}
+						icon="fa-facebook"
+						data={setData}
+					/>
+				)}
+			</>
+		)
+	} else {
+		return (
+			<>
+				{login && (
+					<div className="card">
+						<div className="card-body">
+							<Image className="rounded" src={picture} alt="Profile" />
+							<h5 className="card-title">{data.name}</h5>
+							<p className="card-text">Email ID: {data.email}</p>
+							<a href="#" className="btn btn-danger btn-sm" onClick={logout}>
+								Logout
+							</a>
+						</div>
+					</div>
+				)}
+				<div className='h-screen bg-gray-100 overflow-hidden'>
+			<Head>
+				<title>Salon 2 Bomb</title>
+				<meta name="description" content="A small business resource site" />
+				<link rel="icon" href="/favicon.ico" />
+			</Head>
+			<Header />
+			<main className='flex' >
+				<Sidebar session={session} />
+				<Feed session={session} posts={posts} />
+				<Widgets />
+			</main>
+		</div>
+			</>
+		)
+	}
 
-	return (
+	/*return (
 		<div className='h-screen bg-gray-100 overflow-hidden'>
 			<Head>
 				<title>Salon 2 Bomb</title>
@@ -42,12 +101,13 @@ export default function Home({ posts }) {
 				<Widgets />
 			</main>
 		</div>
-	);
+	);*/
 }
 
 export async function getServerSideProps(context, fbCallback) {
 	//Get user
 	const session = await getSession(context);
+	//const session = {...context}
 	//const posts = await db.collection('posts').orderBy('timestamp', 'desc').get();
 
 	//const colRef = collection(db, "posts");
@@ -61,8 +121,9 @@ export async function getServerSideProps(context, fbCallback) {
 	//const posts = await collection(db, "posts");
 	const posts = await getDocs(collection(db, 'posts'));
 	//console.log(pfbCallback)
+
 	
-	const docs = await posts.docs.map((post)=>({
+	const docs = await posts.docs.map((post) => ({
 		id: post.id,
 		...post.data(),
 		timestamp: null,
