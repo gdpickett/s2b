@@ -2,7 +2,6 @@ import NextAuth from 'next-auth';
 import { getToken } from "next-auth/jwt"
 import FacebookProvider from 'next-auth/providers/facebook'
 import GoogleProvider from 'next-auth/providers/google'
-import TwitterProvider from 'next-auth/providers/twitter'
 
 export default NextAuth({
     providers: [
