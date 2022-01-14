@@ -2,31 +2,32 @@ import Image from "next/image";
 import { useState } from "react";
 import FacebookLogin from "react-facebook-login";
 
-function FacebookLoginComponent({ session }) {
+function FacebookLoginComponent({ session }, props) {
     const [login, setLogin] = useState(false);
     const [data, setData] = useState({});
     const [picture, setPicture] = useState("");
 
     const responseFacebook = (response) => {
-        //console.log(response);
+        console.log(response);
         // Login failed
         if (response.status === "unknown") {
             alert("Login failed!");
             setLogin(false);
             //props.callback = response;
+            console.log(data)
             //return false;
-            return 'Fail '+response;
+            return 'Fail '+data;
         }
         //setData(response);
         //setPicture(response.picture.data.url);
         if (response.accessToken) {
             setLogin(true);
             //this.props.callback = response;
-            return 'token'+ response;
+            return 'token'+ data;
         } else {
             setLogin(false);
-            this.props.callback = response;
-            return 'login fail '+response;
+            props.callback = response;
+            return 'login fail '+data;
         }
     };
     const logout = () => {
@@ -45,6 +46,7 @@ function FacebookLoginComponent({ session }) {
                     scope="public_profile,email,user_friends"
                     callback={responseFacebook}
                     icon="fa-facebook"
+                    data={setData}
                 />
             )}
 
