@@ -33,7 +33,7 @@ function FacebookLoginComponent() {
       <div className="container">
         {!login && (
           <FacebookLogin
-            appId="569720507786195"
+            appId="622758242165850"
             autoLoad={false}
             fields="name,email,picture"
             scope="public_profile,email,user_friends"
