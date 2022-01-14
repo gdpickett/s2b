@@ -45,9 +45,10 @@ export default function Home({ posts }) {
 	);
 }
 
-export async function getServerSideProps(context, fbCallback) {
+export async function getServerSideProps(context, fbCallback, state) {
 	//Get user
 	const session = await getSession(context);
+	if(state){console.log(state)};
 	//const posts = await db.collection('posts').orderBy('timestamp', 'desc').get();
 
 	//const colRef = collection(db, "posts");
