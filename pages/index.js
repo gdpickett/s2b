@@ -7,11 +7,27 @@ import Feed from './Components/Feed'
 import Widgets from './Components/Widgets'
 import { db } from '../firebase';
 import { collection, getDocs } from "firebase/firestore";
+import { FacebookLogin  } from 'react-facebook-login'
+import FacebookLoginComponent from './Components/FacebookLogin'
+import { useState } from 'react'
 
 export default function Home({ posts }) {
 	const { data: session } = useSession()
+	const [ fbCallback, setfbCallback ] = useState(null)
+
+	const handleCallback = (childData) =>{
+        this.setfbCallback( childData )
+		console.log(childData+' childData')
+    }
+
 	//console.log(session);
-	if (!session) return <Login />;
+	if (!session) return (
+		<>
+			<Login />
+			<FacebookLoginComponent session={session} callback={handleCallback} />
+		</>
+	)
+
 	return (
 		<div className='h-screen bg-gray-100 overflow-hidden'>
 			<Head>
@@ -39,7 +55,7 @@ export async function getServerSideProps(context) {
 	//const q = query(collection(db, 'posts'), where('name','==','Glenn Don Dadda Pickett'));
 	//const snapshot = await colRef.where('name','==','Glenn Don Dadda Pickett').get();
 
-
+	console.log(JSON.stringify(JSON.parse(context))+' context')
 	//const querySnapshot = await getDocs(collection(db, 'posts'));
 	//const posts = await collection(db, "posts");
 	const posts = await getDocs(collection(db, 'posts'));
