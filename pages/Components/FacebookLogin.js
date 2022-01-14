@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { useState } from "react";
 import FacebookLogin from "react-facebook-login";
 
@@ -44,7 +45,7 @@ function FacebookLoginComponent() {
         {login && (
           <div className="card">
             <div className="card-body">
-              <img className="rounded" src={picture} alt="Profile" />
+              <Image className="rounded" src={picture} alt="Profile" />
               <h5 className="card-title">{data.name}</h5>
               <p className="card-text">Email ID: {data.email}</p>
               <a href="#" className="btn btn-danger btn-sm" onClick={logout}>
