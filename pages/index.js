@@ -45,10 +45,9 @@ export default function Home({ posts }) {
 	);
 }
 
-export async function getServerSideProps(context, fbCallback, state) {
+export async function getServerSideProps(context, fbCallback) {
 	//Get user
 	const session = await getSession(context);
-	if(state){console.log(state)};
 	//const posts = await db.collection('posts').orderBy('timestamp', 'desc').get();
 
 	//const colRef = collection(db, "posts");
@@ -57,11 +56,11 @@ export async function getServerSideProps(context, fbCallback, state) {
 	//const snapshot = await colRef.where('name','==','Glenn Don Dadda Pickett').get();
 
 	//console.log(JSON.stringify(context)+' context')
+	//console.log(JSON.stringify(JSON.parse(context))+' context')
 	//const querySnapshot = await getDocs(collection(db, 'posts'));
 	//const posts = await collection(db, "posts");
 	const posts = await getDocs(collection(db, 'posts'));
-
-	if(fbCallback) return console.log('serverprops '+fbCallback);
+	//console.log(pfbCallback)
 	
 	const docs = await posts.docs.map((post)=>({
 		id: post.id,
