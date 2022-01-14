@@ -15,9 +15,10 @@ export default function Home({ posts }) {
 	const { data: session } = useSession()
 	const [ fbCallback, setfbCallback ] = useState(null)
 
-	const handleCallback = (childData) =>{
-        this.setfbCallback( childData )
+	const handleCallback = async (childData) =>{
+        setfbCallback( childData )
 		console.log(childData+' childData')
+
     }
 
 	//console.log(session);
@@ -55,7 +56,7 @@ export async function getServerSideProps(context) {
 	//const q = query(collection(db, 'posts'), where('name','==','Glenn Don Dadda Pickett'));
 	//const snapshot = await colRef.where('name','==','Glenn Don Dadda Pickett').get();
 
-	console.log(JSON.stringify(JSON.parse(context))+' context')
+	//console.log(JSON.stringify(JSON.parse(context))+' context')
 	//const querySnapshot = await getDocs(collection(db, 'posts'));
 	//const posts = await collection(db, "posts");
 	const posts = await getDocs(collection(db, 'posts'));
