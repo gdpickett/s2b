@@ -3,10 +3,13 @@ import s2bLogo from '../assets/bomb2.png';
 import { BellIcon, ChatIcon, ChevronDownIcon, HomeIcon, UserGroupIcon, ViewGridIcon } from '@heroicons/react/solid';
 import { FlagIcon, PlayIcon, SearchIcon, ShoppingCartIcon } from "@heroicons/react/outline";
 import HeaderIcon from "./HeaderIcon";
-import { signOut, useSession } from "next-auth/react";
+import { ironSession } from "next-iron-session";
+import { getIronSession } from "iron-session";
+//import { signOut, useSession } from "next-auth/react";
 
 function Header() {
-    const { data: session } = useSession()
+    //const { data: session } = useSession()
+    const { data: session } = ironSession()
 
     if(session){
         return (
