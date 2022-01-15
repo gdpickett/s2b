@@ -1,19 +1,40 @@
 import NextAuth from 'next-auth';
 import { getToken } from "next-auth/jwt"
-import FacebookProvider from 'next-auth/providers/facebook'
-import GoogleProvider from 'next-auth/providers/google'
+import CredentialsProvider from 'next-auth/providers/credentials';
+//import FacebookProvider from 'next-auth/providers/facebook'
+//import GoogleProvider from 'next-auth/providers/google'
 
 export default NextAuth({
     providers: [
         // OAuth authentication providers..
-        FacebookProvider({
+        /*FacebookProvider({
           clientId: process.env.FACEBOOK_ID,
           clientSecret: process.env.FACEBOOK_SECRET
         }),
         GoogleProvider({
           clientId: process.env.GOOGLE_CLIENT_ID,
           clientSecret: process.env.GOOGLE_CLIENT_SECRET
-        }),
+        }),*/
+		CredentialsProvider({
+			id: "facebook-login",
+			name: "Facebook",
+			async authorize(credentials, req) {
+			  const user = {
+				/* add function to get user */
+			  }
+			  return user
+			},
+			credentials: {
+			  domain: {
+				label: "Facebook",
+				type: "text ",
+				placeholder: "Facebook",
+				value: "facebook.com",
+			  },
+			  username: { label: "Username", type: "text ", placeholder: "jsmith" },
+			  password: { label: "Password", type: "password" },
+			},
+		  }),
     ],
     secret: process.env.SECRET,
     session: {
