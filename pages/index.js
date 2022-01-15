@@ -156,8 +156,8 @@ export default function Home({ session, posts, req, res }) {
 			</Head>
 			<Header />
 			<main className='flex' >
-				{/*<Sidebar session={session} />
-				<Feed session={session} posts={posts} />*/}
+				<Sidebar session={session} />
+				<Feed session={session} posts={posts} />
 				<Widgets />
 			</main>
 		</div>
