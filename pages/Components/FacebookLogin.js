@@ -1,14 +1,49 @@
 import Image from "next/image";
 import { useState } from "react";
 import FacebookLogin from "react-facebook-login";
-import {loginAuth}  from "../api/login-auth";
-import {logoutAuth} from "../api/logout-auth";
+import { loginAuth } from "../api/login-auth";
+import { logoutAuth } from "../api/logout-auth";
 import glam from '../assets/bomb-glam.png';
+import useUser from "../lib/useUser";
+import fetchJson, { FetchError } from "../lib/fetchJson";
 
+/*
+export function Login() {
+    // here we just check if user is already logged in and redirect to profile
+
+    return (
+        <Layout>
+            <div className="login">
+                <Form
+
+
+                    
+        
+          />
+            </div>
+            <style jsx>{`
+          .login {
+            max-width: 21rem;
+            margin: 0 auto;
+            padding: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+          }
+        `}</style>
+        </Layout>
+    );
+}*/
 function FacebookLoginComponent({ session }, props) {
     const [login, setLogin] = useState(false);
     const [data, setData] = useState({});
     const [picture, setPicture] = useState("");
+
+    const { mutateUser } = useUser({
+        redirectTo: "../index.js",
+        redirectIfFound: true,
+    });
+
+    const [errorMsg, setErrorMsg] = useState("");
 
     const responseFacebook = (response) => {
         //console.log(response);
@@ -20,12 +55,12 @@ function FacebookLoginComponent({ session }, props) {
             //console.log('data failed '+data)
             //console.log('response failed '+JSON.stringify(response))
             //return false;
-            
+
         }
         //setData(response);
         //setPicture(response.picture.data.url);
         if (response.accessToken) {
-            console.log('access token '+response)
+            console.log('access token ' + response)
             setLogin(true);
             setData(response);
             //this.props.callback = response;
@@ -42,16 +77,16 @@ function FacebookLoginComponent({ session }, props) {
         setData({});
         setPicture("");
         return logoutAuth;
-        
+
     };
 
     return (
         <div className="grid place-items-center">
-            <Image src={glam} height={400} width={400} objectFit="contain" alt='logo'/>
+            <Image src={glam} height={400} width={400} objectFit="contain" alt='logo' />
             {/*<h1 className="p-5 bg-blue-500 rounded-full text-white text-center cursor-pointer"
                 onClick={signIn}>Login Options</h1>*/}
 
-        
+
             {!login && (
                 <FacebookLogin
                     appId="622758242165850"
@@ -61,6 +96,30 @@ function FacebookLoginComponent({ session }, props) {
                     callback={responseFacebook}
                     icon="fa-facebook"
                     data={setData}
+                    errorMessage={errorMsg}
+                    onSubmit={async function handleSubmit(event) {
+                        event.preventDefault();
+
+                        const body = {
+                            username: event.currentTarget.username.value,
+                        }
+
+                        try {
+                            mutateUser(
+                                await fetchJson("/api/login", {
+                                    method: "POST",
+                                    headers: { "Content-Type": "application/json" },
+                                    body: JSON.stringify(body),
+                                }),
+                            );
+                        } catch (error) {
+                            if (error instanceof FetchError) {
+                                setErrorMsg(error.data.message);
+                            } else {
+                                console.error("An unexpected error happened:", error);
+                            }
+                        }
+                    }}
                 />
             )}
 

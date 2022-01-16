@@ -16,6 +16,7 @@ import { applySession } from 'next-iron-session'
 import login from './api/login-auth'
 import logout from './api/logout-auth'
 import FacebookLoginComponent from './Components/FacebookLogin'
+import userAuth from './api/user-auth'
 //import { applySession, withIronSession } from 'next-iron-session'
 //import { ironSession } from "next-iron-session";
 
@@ -188,7 +189,7 @@ export const getServerSideProps = withIronSessionSsr(
 		//ironSession(session)
 
 		//if( req.session.user ){
-			const user = req.session.user|'John';
+			const user = req.session.user| userAuth;
 			//const session = await applySession(req, res);
 		//}
 		//console.log('session' + session)
@@ -251,8 +252,8 @@ export const getServerSideProps = withIronSessionSsr(
 
 			{
 				props: {
-					//user: user,
-					//session: req.session,
+					user: user,
+					session: req.session,
 					posts: docs
 				}
 			}
