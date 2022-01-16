@@ -1,4 +1,4 @@
-export default sessionOptions(
+export const sessionOptions = [
     {
         password: process.env.SECRET,
         cookieName: "salon2bomb",
@@ -6,4 +6,5 @@ export default sessionOptions(
             secure: process.env.NODE_ENV === "production" | false,
         }
     }
-)
+]
+export default sessionOptions
