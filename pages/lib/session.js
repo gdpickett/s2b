@@ -1,4 +1,4 @@
-export const sessionOptions = {
+export default sessionOptions = {
     password: process.env.SECRET,
     cookieName: "salon2bomb",
     cookieOptions: {
