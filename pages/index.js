@@ -1,56 +1,34 @@
 import Head from 'next/head'
 import Header from '../Components/Header'
-import Login from '../Components/Login'
-//import { getSession, useSession, signIn, signOut } from 'next-auth/react'
 import Sidebar from '../Components/Sidebar'
 import Feed from '../Components/Feed'
 import Widgets from '../Components/Widgets'
 import { db } from '../firebase';
 import { collection, getDocs } from "firebase/firestore";
 import { FacebookLogin } from 'react-facebook-login'
-//import FacebookLogin from 'react-facebook-login'
 import { useState } from 'react'
 import Image from 'next/image'
 import { withIronSessionSsr } from "iron-session/next";
 import { applySession } from 'next-iron-session'
-import login from './api/login-auth'
-import logout from './api/logout-auth'
+import login from './api/login'
+import logout from './api/logout'
 import FacebookLoginComponent from '../Components/FacebookLogin'
-import userAuth from './api/user-auth'
-//import { applySession, withIronSession } from 'next-iron-session'
-//import { ironSession } from "next-iron-session";
-
-const pWord = process.env.SECRET;
-
-/*
-const session = ({
-	cookieName: "salon2bomb",
-	password: pWord,
-	ttl: 2147483647,
-	// if your localhost is served on http:// then disable the secure flag
-	cookieOptions: {
-		secure: process.env.NODE_ENV === "production" | false,
-	},
-});*/
-
-//ironSession(session)
-
-//const ContextContainer = createContext(null);
-
-//const caller = '';
+import userAuth from './api/user'
 
 export default function Home({ session, posts, req, res }) {
-	const [fbCallback, setfbCallback] = useState(null)
+	//const [fbCallback, setfbCallback] = useState(null)
 	const [login, setLogin] = useState(false);
 	const [data, setData] = useState({});
 	const [picture, setPicture] = useState(null);
 
+	/*
 	const handleCallback = (childData) => {
 		this.setfbCallback(childData)
 		console.log('childData' + JSON.stringify(childData))
-	}
+	}*/
 
 	//if (req.session.get("user") === undefined) {
+	
 	if (!session) {
 		//res.redirect("/restricted");
 		console.log('User restricted')
@@ -95,18 +73,6 @@ export default function Home({ session, posts, req, res }) {
 							icon="fa-facebook"
 							value={setData}
 						/>
-					)}
-					{login && (
-						<div className="card">
-							<div className="card-body">
-								<Image className="rounded" src={picture} alt="Profile" />
-								<h5 className="card-title">{data.name}</h5>
-								<p className="card-text">Email ID: {data.email}</p>
-								<a href="#" className="btn btn-danger btn-sm" onClick={logout}>
-									Logout
-								</a>
-							</div>
-						</div>
 					)}
 				</>
 			)
@@ -161,6 +127,18 @@ export default function Home({ session, posts, req, res }) {
 				<Feed session={session} posts={posts} />
 				<Widgets />
 			</main>
+			{login && (
+						<div className="card">
+							<div className="card-body">
+								<Image className="rounded" src={picture} alt="Profile" />
+								<h5 className="card-title">{data.name}</h5>
+								<p className="card-text">Email ID: {data.email}</p>
+								<a href="#" className="btn btn-danger btn-sm" onClick={logout}>
+									Logout
+								</a>
+							</div>
+						</div>
+					)}
 		</div>
 	);
 }

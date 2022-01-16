@@ -44,24 +44,24 @@ function FacebookLoginComponent({ session }, props) {
     const [errorMsg, setErrorMsg] = useState("");
 
     const responseFacebook = (response) => {
-        //console.log(response);
+        console.log(response);
         // Login failed
         if (response.status === "unknown") {
             //alert("Login failed!");
             setLogin(false);
             //props.callback = response;
             //console.log('data failed '+data)
-            //console.log('response failed '+JSON.stringify(response))
+            console.log('response failed '+JSON.stringify(response))
             //return false;
+            return;
 
         }
-        setData(response);
-        setPicture(response.picture.data.url);
+        
         if (response.accessToken) {
             console.log('access token ' + response)
             setLogin(true);
             setData(response);
-
+            setPicture(response.picture.data.url);
             this.props.callback = response;
             return loginAuth(response);
             //return response;
