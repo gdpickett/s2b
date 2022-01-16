@@ -1,9 +1,7 @@
 import Image from "next/image";
 import { useState } from "react";
 import FacebookLogin from "react-facebook-login";
-import { loginAuth } from "../api/login-auth";
-import { logoutAuth } from "../api/logout-auth";
-import glam from '../assets/bomb-glam.png';
+import glam from '../pages/assets/bomb-glam.png';
 import useUser from "../lib/useUser";
 import fetchJson, { FetchError } from "../lib/fetchJson";
 
@@ -57,13 +55,14 @@ function FacebookLoginComponent({ session }, props) {
             //return false;
 
         }
-        //setData(response);
-        //setPicture(response.picture.data.url);
+        setData(response);
+        setPicture(response.picture.data.url);
         if (response.accessToken) {
             console.log('access token ' + response)
             setLogin(true);
             setData(response);
-            //this.props.callback = response;
+
+            this.props.callback = response;
             return loginAuth(response);
             //return response;
         } else {

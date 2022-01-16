@@ -1,10 +1,10 @@
 import Head from 'next/head'
-import Header from './Components/Header'
-import Login from './Components/Login'
+import Header from '../Components/Header'
+import Login from '../Components/Login'
 //import { getSession, useSession, signIn, signOut } from 'next-auth/react'
-import Sidebar from './Components/Sidebar'
-import Feed from './Components/Feed'
-import Widgets from './Components/Widgets'
+import Sidebar from '../Components/Sidebar'
+import Feed from '../Components/Feed'
+import Widgets from '../Components/Widgets'
 import { db } from '../firebase';
 import { collection, getDocs } from "firebase/firestore";
 import { FacebookLogin } from 'react-facebook-login'
@@ -15,7 +15,7 @@ import { withIronSessionSsr } from "iron-session/next";
 import { applySession } from 'next-iron-session'
 import login from './api/login-auth'
 import logout from './api/logout-auth'
-import FacebookLoginComponent from './Components/FacebookLogin'
+import FacebookLoginComponent from '../Components/FacebookLogin'
 import userAuth from './api/user-auth'
 //import { applySession, withIronSession } from 'next-iron-session'
 //import { ironSession } from "next-iron-session";

@@ -1,6 +1,6 @@
 import '../styles/globals.css'
 import { SWRConfig } from "swr";
-import fetchJson from './lib/fetchJson';
+import fetchJson from '../lib/fetchJson';
 
 //import {SessionProvider} from 'next-auth/react'
 
