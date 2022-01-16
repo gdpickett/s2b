@@ -125,9 +125,9 @@ function FacebookLoginComponent({ session }, props) {
             {login && (
                 <div className="card">
                     <div className="card-body">
-                        <Image className="rounded" src={picture} alt="Profile" />
+                        {/*<Image className="rounded" src={picture} alt="Profile" />
                         <h5 className="card-title">{data.name}</h5>
-                        <p className="card-text">Email ID: {data.email}</p>
+                        <p className="card-text">Email ID: {data.email}</p>*/}
                         <a href="#" className="btn btn-danger btn-sm" onClick={logout}>
                             Logout
                         </a>
