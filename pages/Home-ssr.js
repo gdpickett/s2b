@@ -11,7 +11,7 @@ import { collection, getDocs } from "firebase/firestore";
 import logout from "./api/logout";
 import Layout from "../Components/Layout";
 
-export default function Home({ user }) {
+export default function Home({ user, posts }) {
 
     return (
         <Layout>
