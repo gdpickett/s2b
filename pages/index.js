@@ -24,11 +24,11 @@ export default function Home({ session, posts, req, res }) {
 
 	//if (req.session.get("user") === undefined) {
 
-	/*if (!session) {
+	if (!session) {
 		//res.redirect("/restricted");
 		console.log('User restricted')
 		return <FacebookLoginComponent callback={data} />
-	}*/
+	}
 
 	return (
 		<div className='h-screen bg-gray-100 overflow-hidden'>
