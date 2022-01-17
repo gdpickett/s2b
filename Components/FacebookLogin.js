@@ -4,7 +4,7 @@ import FacebookLogin from "react-facebook-login";
 import glam from '../pages/assets/bomb-glam.png';
 import useUser from "../lib/useUser";
 import fetchJson, { FetchError } from "../lib/fetchJson";
-import Home from "../pages";
+import Home from "../pages/Home-ssr";
 
 function FacebookLoginComponent({ session }, props) {
     const [login, setLogin] = useState(false);
@@ -12,7 +12,7 @@ function FacebookLoginComponent({ session }, props) {
     const [picture, setPicture] = useState("");
 
     const { mutateUser } = useUser({
-        redirectTo: "../pages/Home.js",
+        redirectTo: "../pages/Home-ssr.js",
         redirectIfFound: true,
     });
 
@@ -97,7 +97,11 @@ function FacebookLoginComponent({ session }, props) {
             )}
 
             {login && (
-                <Home />
+                
+                <>
+                    <Home />
+                    <div>Going Home Yet</div>
+                </>
             )}
         </div>
     );

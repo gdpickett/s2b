@@ -9,11 +9,12 @@ import Widgets from '../Components/Widgets'
 import { db } from '../firebase';
 import { collection, getDocs } from "firebase/firestore";
 import logout from "./api/logout";
+import Layout from "../Components/Layout";
 
 export default function Home({ user }) {
 
     return (
-        <>
+        <Layout>
             <div className='h-screen bg-gray-100 overflow-hidden'>
                 <Head>
                     <title>Salon 2 Bomb</title>
@@ -42,7 +43,7 @@ export default function Home({ user }) {
                     <pre>{JSON.stringify(user, null, 2)}</pre>
                 </>
             )}
-        </>
+        </Layout>
     );
 }
 
