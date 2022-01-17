@@ -4,9 +4,9 @@ import { BellIcon, ChatIcon, ChevronDownIcon, HomeIcon, UserGroupIcon, ViewGridI
 import { FlagIcon, PlayIcon, SearchIcon, ShoppingCartIcon } from "@heroicons/react/outline";
 import HeaderIcon from "./HeaderIcon";
 import Link from "next/link";
-import useUser from "lib/useUser";
+import useUser from "../lib/useUser";
 import { useRouter } from "next/router";
-import fetchJson from "lib/fetchJson";
+import fetchJson from "../lib/fetchJson";
 //import { signOut, useSession } from "next-auth/react";
 
 function Header() {

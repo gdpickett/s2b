@@ -3,8 +3,6 @@ import Header from '../Components/Header'
 import Sidebar from '../Components/Sidebar'
 import Feed from '../Components/Feed'
 import Widgets from '../Components/Widgets'
-import { db } from '../firebase';
-import { collection, getDocs } from "firebase/firestore";
 import { useState } from 'react'
 import { withIronSessionSsr } from "iron-session/next";
 import logout from './api/logout'
