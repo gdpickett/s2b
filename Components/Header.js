@@ -9,13 +9,13 @@ import { useRouter } from "next/router";
 import fetchJson from "../lib/fetchJson";
 //import { signOut, useSession } from "next-auth/react";
 
-function Header() {
+function Header({session}) {
     //const { data: session } = useSession()
-    const { data: session } = ironSession()
+    //const { data: session } = ironSession()
     const { user, mutateUser } = useUser();
     const router = useRouter();
 
-    if (user) {
+    if (session) {
         return (
             <>
                 {user?.isLoggedIn === false && (
@@ -75,7 +75,7 @@ function Header() {
 
     } else {
         return (
-            <div></div>
+            <div>No Header</div>
         )
     }
 }

@@ -11,8 +11,8 @@ import { collection, getDocs } from "firebase/firestore";
 import logout from "./api/logout";
 import Layout from "../Components/Layout";
 
-export default function Home({ user, posts }) {
-
+export default function Home({ user, session, posts }) {
+    console.log('session home-ssr'+session)
     return (
         <Layout>
             <div className='h-screen bg-gray-100 overflow-hidden'>

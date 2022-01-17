@@ -78,6 +78,7 @@ function InputBox({ session }) {
                             <input className='rounded-full h-12 bg-gray-100 flex-grow px-5 focus:outline-none' ref={inputRef} type='text' placeholder={`What's on your mind, ${session.user.name}?`} />
                             <button hidden type="submit" onClick={sendPost}>Submit</button>
                         </form>
+                    </>
                 */}
 
                 {imageToPost &&

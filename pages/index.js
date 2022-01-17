@@ -66,15 +66,7 @@ export const getServerSideProps = withIronSessionSsr(
 		//if( req.session.user ){
 		const user = req.session.user | userAuth;
 		const session = req.session;
-		//const session = await applySession(req, res);
-		//}
-		//console.log('session' + session)
-		//console.log('user ' + user)
-		//console.log('req ' + { req })
-		//console.log('res ' + res)
-
-
-
+		const docs = '';
 		/*
 		if (req.session.get("user") === undefined) {
 			if (user.admin !== true) {
@@ -84,13 +76,6 @@ export const getServerSideProps = withIronSessionSsr(
 			}
 			return;
 		}*/
-
-
-
-		//console.log('appState ' + appState);
-
-
-
 
 		/*
 		const docs = await querySnapshot.forEach((post) =>({
@@ -126,7 +111,7 @@ export const getServerSideProps = withIronSessionSsr(
 				props: {
 					user: user,
 					session: req.session,
-					//posts: docs
+					posts: docs
 				}
 			}
 
