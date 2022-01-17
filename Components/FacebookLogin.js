@@ -11,7 +11,7 @@ function FacebookLoginComponent({ session }, props) {
     const [picture, setPicture] = useState("");
 
     const { mutateUser } = useUser({
-        redirectTo: "/pages/Home.js",
+        redirectTo: "../pages/Home.js",
         redirectIfFound: true,
     });
 
