@@ -30,7 +30,7 @@ export default function Home({ session, posts }) {
 
     console.log(fbObject)
     return (
-        <Layout>
+        <>{children}
             <div className='h-screen bg-gray-100 overflow-hidden'>
                 <Head>
                     <title>Salon 2 Bomb</title>
@@ -59,7 +59,7 @@ export default function Home({ session, posts }) {
                     <pre>{JSON.stringify(user, null, 2)}</pre>
                 </>
             )}
-        </Layout>
+        </>
     );
 }
 
