@@ -15,8 +15,7 @@ import logout from './api/logout'
 import FacebookLoginComponent from '../Components/FacebookLogin'
 import userAuth from './api/user'
 
-export default function Home({ posts, req, res }) {
-	const session = req.session;
+export default function Home({ session, posts, req, res }) {
 	//const [fbCallback, setfbCallback] = useState(null)
 	const [login, setLogin] = useState(false);
 	const [data, setData] = useState({});
@@ -36,85 +35,6 @@ export default function Home({ posts, req, res }) {
 		return <FacebookLoginComponent />;
 	}
 
-	/*
-	const responseFacebook = (response) => {
-		console.log(response);
-
-		if (response.accessToken) {
-			setLogin(true);
-			setData(response);
-			setPicture(response.picture.data.url);
-			login(response)
-			return
-			//setfbCallback(response)
-			//updateAppState({ ...appState, data: response });;
-		} else {
-			logout();
-			setLogin(false);
-			return
-		}
-	}*/
-
-	//const { data: session } = useSession();
-
-	//console.log(session);
-	//if (!responseFacebook) {
-		if (!session) {
-			//console.log(session.status(context))
-			return (
-				<>
-					{/*<Login />*/}
-					{/*!login && (
-						<FacebookLogin
-							appId="622758242165850"
-							autoLoad={false}
-							fields="name,email,picture"
-							scope="public_profile,email,user_friends"
-							callback={responseFacebook}
-							icon="fa-facebook"
-							value={setData}
-						/>
-					)*/}
-				</>
-			)
-		}
-	//} else {
-		//console.log('data = ' + JSON.stringify(responseFacebook));
-		//console.log('data = ' + responseFacebook);
-		//console.log('session = '+session)
-		//console.log('caller = ' + JSON.stringify(data))
-	/*	return (
-			<>
-				<Head>
-					<title>Salon 2 Bomb</title>
-					<meta name="description" content="A small business resource site" />
-					<link rel="icon" href="/favicon.ico" />
-				</Head>
-				<Header />
-				<main className='flex' >
-					{/*<Sidebar session={session} />
-					<Feed session={session} posts={posts} />
-					<Widgets />
-					{login && (
-						<div className="card">
-							<div className="card-body">
-								<Image className="rounded" src={picture} alt="Profile" />
-								<h5 className="card-title">{data.name}</h5>
-								<p className="card-text">Email ID: {data.email}</p>
-								<a href="#" className="btn btn-danger btn-sm" onClick={logout}>
-									Logout
-								</a>
-							</div>
-						</div>
-					)}
-				</main>}*/
-
-				{/*<div className='h-screen bg-gray-100 overflow-hidden'>
-				</div>*/}
-			//</>
-		//)
-	//}
-
 	return (
 		<div className='h-screen bg-gray-100 overflow-hidden'>
 			<Head>
@@ -131,9 +51,9 @@ export default function Home({ posts, req, res }) {
 			{login && (
 						<div className="card">
 							<div className="card-body">
-								{/*<Image className="rounded" src={picture} alt="Profile" />
+								{/*<Image className="rounded" src={picture} alt="Profile" />*/}
 								<h5 className="card-title">{data.name}</h5>
-								<p className="card-text">Email ID: {data.email}</p>*/}
+								<p className="card-text">Email ID: {data.email}</p>
 								<a href="#" className="btn btn-danger btn-sm" onClick={logout}>
 									Logout
 								</a>
@@ -144,31 +64,13 @@ export default function Home({ posts, req, res }) {
 	);
 }
 
-//export async function useServerSideProps(context, fbCallback) {
-//Get user
-//const [appState, setAppState] = useState('');
-//const [appState, updateAppState] = useContext(ContextContainer);
-//const session = await getSession(context);
-//const session = {...context}
-//const posts = await db.collection('posts').orderBy('timestamp', 'desc').get();
-
-//const colRef = collection(db, "posts");
-//const docRef = doc(db, "posts",
-//const q = query(collection(db, 'posts'), where('name','==','Glenn Don Dadda Pickett'));
-//const snapshot = await colRef.where('name','==','Glenn Don Dadda Pickett').get();
-
-//console.log(JSON.stringify(context)+' context')
-//console.log(JSON.stringify(JSON.parse(context))+' context')
-//const querySnapshot = await getDocs(collection(db, 'posts'));
-//const posts = await collection(db, "posts");
-
-
 export const getServerSideProps = withIronSessionSsr(
-	async function getServerSideProps({ req, res, session }) {
+	async function getServerSideProps({ req }) {
 		//ironSession(session)
 
 		//if( req.session.user ){
 			const user = req.session.user| userAuth;
+			const session = req.session;
 			//const session = await applySession(req, res);
 		//}
 		//console.log('session' + session)
