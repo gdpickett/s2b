@@ -4,6 +4,7 @@ import FacebookLogin from "react-facebook-login";
 import glam from '../pages/assets/bomb-glam.png';
 import useUser from "../lib/useUser";
 import fetchJson, { FetchError } from "../lib/fetchJson";
+import Home from "../pages";
 
 function FacebookLoginComponent({ session }, props) {
     const [login, setLogin] = useState(false);
@@ -37,7 +38,6 @@ function FacebookLoginComponent({ session }, props) {
             setData(response);
             setPicture(response.picture.data.url);
             this.props.callback = response;
-            return loginAuth(response);
             //return response;
         } else {
             setLogin(false);
@@ -96,9 +96,9 @@ function FacebookLoginComponent({ session }, props) {
                 />
             )}
 
-            {/*login && (
-                
-            )*/}
+            {login && (
+                <Home />
+            )}
         </div>
     );
 }
