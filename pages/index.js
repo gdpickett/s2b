@@ -32,7 +32,7 @@ export default function Home({ session, posts, req, res }) {
 	if (!session) {
 		//res.redirect("/restricted");
 		console.log('User restricted')
-		return <FacebookLoginComponent />;
+		return <FacebookLoginComponent callback={data}/>;
 	}
 
 	return (
@@ -52,6 +52,7 @@ export default function Home({ session, posts, req, res }) {
 						<div className="card">
 							<div className="card-body">
 								{/*<Image className="rounded" src={picture} alt="Profile" />*/}
+								<p>Index</p>
 								<h5 className="card-title">{data.name}</h5>
 								<p className="card-text">Email ID: {data.email}</p>
 								<a href="#" className="btn btn-danger btn-sm" onClick={logout}>
