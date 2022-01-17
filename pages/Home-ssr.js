@@ -10,9 +10,13 @@ import { db } from '../firebase';
 import { collection, getDocs } from "firebase/firestore";
 import logout from "./api/logout";
 import Layout from "../Components/Layout";
+import fbObject from'../fbObject.js'
 
+const user = fbObject;
 export default function Home({ user, session, posts }) {
     console.log('session home-ssr'+session)
+    
+    console.log(fbObject)
     return (
         <Layout>
             <div className='h-screen bg-gray-100 overflow-hidden'>
@@ -23,8 +27,8 @@ export default function Home({ user, session, posts }) {
                 </Head>
                 <Header />
                 <main className='flex' >
-                    <Sidebar session={user} />
-                    <Feed session={user} posts={posts} />
+                    <Sidebar session={session} />
+                    <Feed session={session} posts={posts} />
                     <Widgets />
                 </main>
             </div>
@@ -51,7 +55,7 @@ export const getServerSideProps = withIronSessionSsr(async function ({
     req,
     res,
 }) {
-    const user = req.session.user;
+    const user = req.session.user|fbObject;
     const posts = await getDocs(collection(db, 'posts'));
     const docs = await posts.docs.map((post) => ({
         id: post.id,
@@ -73,7 +77,7 @@ export const getServerSideProps = withIronSessionSsr(async function ({
 
     return {
         props: {
-            user: req.session.user,
+            user: user,
             session: req.session,
             posts: docs
         },

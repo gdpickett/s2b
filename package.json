@@ -1,6 +1,7 @@
 {
   "name": "s2b3",
   "private": true,
+  "main": "pages/server.js",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

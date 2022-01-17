@@ -16,6 +16,7 @@ function Header({session}) {
     const router = useRouter();
 
     if (session) {
+        console.log('header user is'+user)
         return (
             <>
                 {user?.isLoggedIn === false && (
