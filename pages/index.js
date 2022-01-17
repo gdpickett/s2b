@@ -5,12 +5,8 @@ import Feed from '../Components/Feed'
 import Widgets from '../Components/Widgets'
 import { db } from '../firebase';
 import { collection, getDocs } from "firebase/firestore";
-import { FacebookLogin } from 'react-facebook-login'
 import { useState } from 'react'
-import Image from 'next/image'
 import { withIronSessionSsr } from "iron-session/next";
-import { applySession } from 'next-iron-session'
-import login from './api/login'
 import logout from './api/logout'
 import FacebookLoginComponent from '../Components/FacebookLogin'
 import userAuth from './api/user'
@@ -32,7 +28,7 @@ export default function Home({ session, posts, req, res }) {
 	if (!session) {
 		//res.redirect("/restricted");
 		console.log('User restricted')
-		return <FacebookLoginComponent callback={data}/>;
+		return <FacebookLoginComponent callback={data}/>
 	}
 
 	return (
@@ -92,15 +88,11 @@ export const getServerSideProps = withIronSessionSsr(
 		}*/
 
 
-		const posts = await getDocs(collection(db, 'posts'));
+		
 		//console.log('appState ' + appState);
 
 
-		const docs = await posts.docs.map((post) => ({
-			id: post.id,
-			...post.data(),
-			timestamp: null,
-		}));
+		
 
 		/*
 		const docs = await querySnapshot.forEach((post) =>({
@@ -127,7 +119,7 @@ export const getServerSideProps = withIronSessionSsr(
 		//console.log(JSON.stringify(docs+' docs2'))
 		//console.log(JSON.parse(docs+' docs3'))
 		//console.log(JSON.parse(JSON.stringify(docs+' docs4')))
-		console.log('docs ' + docs)
+		//console.log('docs ' + docs)
 
 
 		return (
@@ -136,14 +128,14 @@ export const getServerSideProps = withIronSessionSsr(
 				props: {
 					user: user,
 					session: req.session,
-					posts: docs
+					//posts: docs
 				}
 			}
 
 		);
 	},
 	{
-		cookieName: "salo2bomb",
+		cookieName: "salon2bomb",
 		password: process.env.SECRET,
 		// secure: true should be used in production (HTTPS) but can't be used in development (HTTP)
 		cookieOptions: {

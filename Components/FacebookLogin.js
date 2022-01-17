@@ -5,39 +5,13 @@ import glam from '../pages/assets/bomb-glam.png';
 import useUser from "../lib/useUser";
 import fetchJson, { FetchError } from "../lib/fetchJson";
 
-/*
-export function Login() {
-    // here we just check if user is already logged in and redirect to profile
-
-    return (
-        <Layout>
-            <div className="login">
-                <Form
-
-
-                    
-        
-          />
-            </div>
-            <style jsx>{`
-          .login {
-            max-width: 21rem;
-            margin: 0 auto;
-            padding: 1rem;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-          }
-        `}</style>
-        </Layout>
-    );
-}*/
 function FacebookLoginComponent({ session }, props) {
     const [login, setLogin] = useState(false);
     const [data, setData] = useState({});
     const [picture, setPicture] = useState("");
 
     const { mutateUser } = useUser({
-        redirectTo: "../index.js",
+        redirectTo: "/pages/Home.js",
         redirectIfFound: true,
     });
 
@@ -122,17 +96,9 @@ function FacebookLoginComponent({ session }, props) {
                 />
             )}
 
-            {login && (
-                <div className="card">
-                    <div className="card-body">
-                        {/*<Image className="rounded" src={picture} alt="Profile" />*/}
-                        <p>Inside FacebookLogin</p>
-                        <a href="#" className="btn btn-danger btn-sm" onClick={logout}>
-                            Logout
-                        </a>
-                    </div>
-                </div>
-            )}
+            {/*login && (
+                
+            )*/}
         </div>
     );
 }
