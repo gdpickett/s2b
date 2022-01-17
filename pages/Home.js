@@ -1,6 +1,6 @@
 import React from "react";
 import { withIronSessionSsr } from "iron-session/next";
-import { sessionOptions } from "lib/session";
+import { sessionOptions } from "../lib/session";
 import Head from 'next/head'
 import Header from '../Components/Header'
 import Sidebar from '../Components/Sidebar'
