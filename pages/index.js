@@ -15,7 +15,8 @@ import logout from './api/logout'
 import FacebookLoginComponent from '../Components/FacebookLogin'
 import userAuth from './api/user'
 
-export default function Home({ session, posts, req, res }) {
+export default function Home({ posts, req, res }) {
+	const session = req.session;
 	//const [fbCallback, setfbCallback] = useState(null)
 	const [login, setLogin] = useState(false);
 	const [data, setData] = useState({});
@@ -63,7 +64,7 @@ export default function Home({ session, posts, req, res }) {
 			return (
 				<>
 					{/*<Login />*/}
-					{!login && (
+					{/*!login && (
 						<FacebookLogin
 							appId="622758242165850"
 							autoLoad={false}
@@ -73,7 +74,7 @@ export default function Home({ session, posts, req, res }) {
 							icon="fa-facebook"
 							value={setData}
 						/>
-					)}
+					)*/}
 				</>
 			)
 		}
