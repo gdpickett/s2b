@@ -1,5 +1,4 @@
 import useSWR from "swr";
-
 import userFetcher from "../lib/apiUser";
 
 export default function useUser() {
