@@ -1,21 +1,29 @@
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import FacebookLogin from "react-facebook-login";
 import glam from '../pages/assets/bomb-glam.png';
 import useUser from "../lib/useUser";
 import fetchJson, { FetchError } from "../lib/fetchJson";
 import Home from "../pages/Home-ssr";
+import useSWR from "swr";
+
 
 function FacebookLoginComponent({ session }, props) {
     const [login, setLogin] = useState(false);
     const [data, setData] = useState({});
     const [picture, setPicture] = useState("");
+	const { user, mutate, loggedOut } = useUser();
 
     const { mutateUser } = useUser({
         redirectTo: "../pages/Home-ssr.js",
         redirectIfFound: true,
     });
 
+    useEffect(() => {
+		if (user && !loggedOut) {
+			Router.replace("../pages/Home-ssr");
+		}
+	}, [user, loggedOut]);
     const [errorMsg, setErrorMsg] = useState("");
 
     const responseFacebook = (response) => {
@@ -38,6 +46,7 @@ function FacebookLoginComponent({ session }, props) {
             setData(response);
             setPicture(response.picture.data.url);
             this.props.callback = response;
+            
             //return response;
         } else {
             setLogin(false);
@@ -45,6 +54,7 @@ function FacebookLoginComponent({ session }, props) {
             return response;
         }
     };
+    
     const logout = () => {
         setLogin(false);
         setData({});
@@ -96,13 +106,13 @@ function FacebookLoginComponent({ session }, props) {
                 />
             )}
 
-            {login && (
+            {/*login && (
                 
                 <>
                     <Home />
                     <div>Going Home Yet</div>
                 </>
-            )}
+            )*/}
         </div>
     );
 }

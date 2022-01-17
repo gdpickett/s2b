@@ -10,7 +10,7 @@ export default function Layout({ children }) {
       <Header />
 
       <main>
-        <div className="container">{children}</div>
+        {children}
       </main>
     </>
   );

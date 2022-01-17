@@ -3,18 +3,19 @@ import Header from '../Components/Header'
 import Sidebar from '../Components/Sidebar'
 import Feed from '../Components/Feed'
 import Widgets from '../Components/Widgets'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { withIronSessionSsr } from "iron-session/next";
 import logout from './api/logout'
 import FacebookLoginComponent from '../Components/FacebookLogin'
-import userAuth from './api/user'
+import Router from "next/router";
+import useUser from "../data/useUser";
+import { login } from "../lib/auth";
 
 export default function Home({ session, posts, req, res }) {
 	//const [fbCallback, setfbCallback] = useState(null)
 	const [login, setLogin] = useState(false);
 	const [data, setData] = useState({});
 	const [picture, setPicture] = useState(null);
-
 	/*
 	const handleCallback = (childData) => {
 		this.setfbCallback(childData)
@@ -23,11 +24,11 @@ export default function Home({ session, posts, req, res }) {
 
 	//if (req.session.get("user") === undefined) {
 
-	if (!session) {
+	/*if (!session) {
 		//res.redirect("/restricted");
 		console.log('User restricted')
 		return <FacebookLoginComponent callback={data} />
-	}
+	}*/
 
 	return (
 		<div className='h-screen bg-gray-100 overflow-hidden'>
@@ -64,7 +65,7 @@ export const getServerSideProps = withIronSessionSsr(
 		//ironSession(session)
 
 		//if( req.session.user ){
-		const user = req.session.user | userAuth;
+		const user = req.session.user;
 		const session = req.session;
 		const docs = '';
 		/*

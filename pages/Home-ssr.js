@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { withIronSessionSsr } from "iron-session/next";
 import { sessionOptions } from "../lib/session";
 import Head from 'next/head'
@@ -8,14 +8,26 @@ import Feed from '../Components/Feed'
 import Widgets from '../Components/Widgets'
 import { db } from '../firebase';
 import { collection, getDocs } from "firebase/firestore";
-import logout from "./api/logout";
+//import logout from "./api/logout";
 import Layout from "../Components/Layout";
-import fbObject from'../fbObject.js'
+import fbObject from '../fbObject.js'
+import { getIronSession } from "iron-session";
+import Router from "next/router";
+import useUser from "../data/useUser";
+import { logout } from "../lib/auth";
 
 const user = fbObject;
-export default function Home({ user, session, posts }) {
-    console.log('session home-ssr'+session)
-    
+export default function Home({ session, posts }) {
+    console.log('session home-ssr' + session)
+    const { user, loading, loggedOut, mutate } = useUser();
+
+    useEffect(() => {
+        if (loggedOut) {
+          Router.replace("/");
+        }
+      }, [loggedOut]);
+      if (loggedOut) return "redirecting...";
+
     console.log(fbObject)
     return (
         <Layout>
@@ -55,13 +67,16 @@ export const getServerSideProps = withIronSessionSsr(async function ({
     req,
     res,
 }) {
-    const user = req.session.user|fbObject;
+    const session = await getIronSession(req, res, { cookieName: "salon2bomb", password: process.env.SECRET })
+    const user = req.session.user | fbObject;
     const posts = await getDocs(collection(db, 'posts'));
     const docs = await posts.docs.map((post) => ({
         id: post.id,
         ...post.data(),
         timestamp: null,
     }));
+
+    console.log('session homessr' + session)
 
     if (user === undefined) {
         res.setHeader("location", "/index");
@@ -78,7 +93,7 @@ export const getServerSideProps = withIronSessionSsr(async function ({
     return {
         props: {
             user: user,
-            session: req.session,
+            //session: session,
             posts: docs
         },
     };
