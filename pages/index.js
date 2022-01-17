@@ -110,8 +110,8 @@ export const getServerSideProps = withIronSessionSsr(
 
 			{
 				props: {
-					user: user,
-					session: req.session,
+					//user: user,
+					session: session,
 					posts: docs
 				}
 			}
