@@ -1,4 +1,5 @@
-module.exports = {
+export const USERS = [
+  {
     "name": "Glenn Don Dada Pickett",
     "email": "webdesigng@yahoo.com",
     "picture": {
@@ -17,3 +18,4 @@ module.exports = {
     "graphDomain": "facebook",
     "data_access_expiration_time": 1650192711
   }
+]

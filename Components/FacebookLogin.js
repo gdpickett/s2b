@@ -2,29 +2,11 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import FacebookLogin from "react-facebook-login";
 import glam from '../pages/assets/bomb-glam.png';
-import useUser from "../lib/useUser";
-import fetchJson, { FetchError } from "../lib/fetchJson";
-import Home from "../pages/Home-ssr";
-import useSWR from "swr";
-
 
 function FacebookLoginComponent({ session }, props) {
     const [login, setLogin] = useState(false);
     const [data, setData] = useState({});
     const [picture, setPicture] = useState("");
-	const { user, mutate, loggedOut } = useUser();
-
-    const { mutateUser } = useUser({
-        redirectTo: "../pages/Home-ssr.js",
-        redirectIfFound: true,
-    });
-
-    useEffect(() => {
-		if (user && !loggedOut) {
-			Router.replace("../pages/Home-ssr");
-		}
-	}, [user, loggedOut]);
-    const [errorMsg, setErrorMsg] = useState("");
 
     const responseFacebook = (response) => {
         console.log(response);
@@ -78,31 +60,7 @@ function FacebookLoginComponent({ session }, props) {
                     scope="public_profile,email,user_friends"
                     callback={responseFacebook}
                     icon="fa-facebook"
-                    data={setData}
-                    errorMessage={errorMsg}
-                    onSubmit={async function handleSubmit(event) {
-                        event.preventDefault();
-
-                        const body = {
-                            username: event.currentTarget.username.value,
-                        }
-
-                        try {
-                            mutateUser(
-                                await fetchJson("/api/login", {
-                                    method: "POST",
-                                    headers: { "Content-Type": "application/json" },
-                                    body: JSON.stringify(body),
-                                }),
-                            );
-                        } catch (error) {
-                            if (error instanceof FetchError) {
-                                setErrorMsg(error.data.message);
-                            } else {
-                                console.error("An unexpected error happened:", error);
-                            }
-                        }
-                    }}
+                    
                 />
             )}
 

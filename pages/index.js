@@ -4,12 +4,11 @@ import Sidebar from '../Components/Sidebar'
 import Feed from '../Components/Feed'
 import Widgets from '../Components/Widgets'
 import { useEffect, useState } from 'react'
-import { withIronSessionSsr } from "iron-session/next";
-import logout from './api/logout'
 import FacebookLoginComponent from '../Components/FacebookLogin'
 import Router from "next/router";
-import useUser from "../data/useUser";
-import { login } from "../lib/auth";
+import { wrapper } from '../redux/store'
+import { initialState } from '../redux/reducer'
+import { ADD_USER } from '../redux/ActionTypes'
 
 export default function Home({ session, posts, req, res }) {
 	//const [fbCallback, setfbCallback] = useState(null)
@@ -60,15 +59,18 @@ export default function Home({ session, posts, req, res }) {
 	);
 }
 
-export const getServerSideProps = withIronSessionSsr(
-	async function getServerSideProps({ req }) {
-		//ironSession(session)
+export const getServerSideProps = wrapper.getServerSideProps(store => ({ req, res, ...etc }) => {
+	store.dispatch({ type: ADD_USER, payload: initialState });
+	console.log('2. InitialState');
+	//ironSession(session)
 
-		//if( req.session.user ){
-		const user = req.session.user;
+	//if (req?.session.user) {
+		//const user = req.session.user;
 		const session = req.session;
 		const docs = '';
-		/*
+		
+
+		/*/
 		if (req.session.get("user") === undefined) {
 			if (user.admin !== true) {
 				return {
@@ -111,19 +113,11 @@ export const getServerSideProps = withIronSessionSsr(
 			{
 				props: {
 					//user: user,
-					session: session,
+					//session: session,
 					posts: docs
 				}
 			}
 
 		);
-	},
-	{
-		cookieName: "salon2bomb",
-		password: process.env.SECRET,
-		// secure: true should be used in production (HTTPS) but can't be used in development (HTTP)
-		cookieOptions: {
-			secure: process.env.NODE_ENV === "production" | false,
-		},
 	},
 )

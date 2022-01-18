@@ -1,22 +1,12 @@
 import '../styles/globals.css'
-import { SWRConfig } from "swr";
-import fetchJson from '../lib/fetchJson';
+import { wrapper } from '../redux/store';
+import React from 'react';
 
-//import {SessionProvider} from 'next-auth/react'
-
-//function MyApp({ Component,...pageProps }) {
-function MyApp({ Component, ...pageProps }) {
-	return (
-		<>
-			<SWRConfig value={{fetcher: fetchJson,onError: (err) => {
-						console.error(err);
-					},
-				}}
-			>
-				<Component {...pageProps} />
-			</SWRConfig>
-		</>
-	)
+class MyApp extends React.Component {
+  render() {
+    const {Component, pageProps} = this.props;
+    return <Component {...pageProps} />;
+  }
 }
 
-export default MyApp
+export default wrapper.withRedux(MyApp);

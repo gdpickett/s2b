@@ -4,19 +4,13 @@ import { BellIcon, ChatIcon, ChevronDownIcon, HomeIcon, UserGroupIcon, ViewGridI
 import { FlagIcon, PlayIcon, SearchIcon, ShoppingCartIcon } from "@heroicons/react/outline";
 import HeaderIcon from "./HeaderIcon";
 import Link from "next/link";
-import useUser from "../lib/useUser";
 import { useRouter } from "next/router";
-import fetchJson from "../lib/fetchJson";
-//import { signOut, useSession } from "next-auth/react";
 
-function Header({session}) {
-    //const { data: session } = useSession()
-    //const { data: session } = ironSession()
-    const { user, mutateUser } = useUser();
+function Header({ session }) {
     const router = useRouter();
 
     if (session) {
-        console.log('header user is'+user)
+        console.log('header user is' + user)
         return (
             <>
                 {user?.isLoggedIn === false && (
@@ -26,7 +20,7 @@ function Header({session}) {
                         </Link>
                     </li>
                 )}
-                {user?.isLoggedIn === true && (
+                {//user?.isLoggedIn === true && (
                     <div className='sticky top-0 z-50 bg-white flex items-center p-2 lg:px-5 shadow-md'>
                         <div className='flex items-center'>
                             <Image src={s2bLogo} alt='s2bLogo' width='40' height='40' layout='fixed' />
@@ -46,31 +40,32 @@ function Header({session}) {
                             </div>
                         </div>
                         <div className="flex items-center sm:space-x-2 justify-end">
-                            <Image onClick={signOut} className="rounded-full cursor-pointer" src={session.user.image}
+                            <Image onClick={signOut} className="rounded-full cursor-pointer" src={session.image}
                                 width={40} height={40} layout="fixed" alt='profile_pic' />
-                            <p className="whitespace-nowrap font-semibold pr-3">{session.user.name}</p>
+                            <p className="whitespace-nowrap font-semibold pr-3">{session.name}</p>
                             <ViewGridIcon className="icon" />
                             <ChatIcon className="icon" />
                             <BellIcon className="icon" />
                             <ChevronDownIcon className="icon" />
                         </div>
                         {/* In this case, we're fine with linking with a regular a in case of no JavaScript */}
-                {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-                <a
-                  href="/api/logout"
-                  onClick={async (e) => {
-                    e.preventDefault();
-                    mutateUser(
-                      await fetchJson("/api/logout", { method: "POST" }),
-                      false,
-                    );
-                    router.push("/login");
-                  }}
-                >
-                  Logout
-                </a>
+                        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+                        <a
+                            href="/api/logout"
+                            onClick={async (e) => {
+                                e.preventDefault();
+                                mutateUser(
+                                    await fetchJson("/api/logout", { method: "POST" }),
+                                    false,
+                                );
+                                router.push("/login");
+                            }}
+                        >
+                            Logout
+                        </a>
                     </div>
-                )}
+                //)}
+                }
             </>
         )
 
