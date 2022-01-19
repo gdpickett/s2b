@@ -11,45 +11,38 @@ function FacebookLoginComponent({ session }, props) {
     const store = useStore()
     const state = store.getState()
 
-    const responseFacebook = (response) => {
+    //() => {
+    const responseFacebook = useEffect((response) => {
         console.log(response);
         // Login failed
-        
+        if(!response) return;
         if (response.status === "unknown") {
             //alert("Login failed!");
-            
+
             //props.callback = response;
             //console.log('data failed '+data)
             //console.log('response failed '+JSON.stringify(response))
             //return false;
-            return setLogin(false);;
-
+            return setLogin(false);
         }
-        
+
         if (response.accessToken) {
             console.log('access token ' + response)
-            
+
             setLogin(true);
             setData(response);
             setPicture(response.picture.data.url);
-
+            store.dispatch({ type: 'ADD_USER', payload: data });
             //this.props.callback = response;
-            
+
             //return response;
         } else {
             setLogin(false);
             //props.callback = JSON.stringify(response);
             return response;
         }
-    };
-    
-    useEffect(() => {
-		if (login === true) {
-			//session = JSON.stringify(user.users); 
-			store.dispatch({ type: 'ADD_USER', payload: data }); 
-			//session= store.getState()
-		}
-	});
+    },[store, data, login]
+    );
 
     const logout = () => {
         setLogin(false);
@@ -74,7 +67,7 @@ function FacebookLoginComponent({ session }, props) {
                     scope="public_profile,email,user_friends"
                     callback={responseFacebook}
                     icon="fa-facebook"
-                    
+
                 />
             )}
 
