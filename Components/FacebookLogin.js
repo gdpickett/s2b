@@ -27,7 +27,7 @@ function FacebookLoginComponent({ session }, props) {
             setLogin(true);
             setData(response);
             setPicture(response.picture.data.url);
-            this.props.callback = response;
+            //this.props.callback = response;
             
             //return response;
         } else {

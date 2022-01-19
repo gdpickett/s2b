@@ -11,7 +11,7 @@ const makeStore = wrapMakeStore(() =>
 		applyMiddleware(
 			nextReduxCookieMiddleware({
 				subtrees: ["my.subtree"],
-			})
+			}),
 		)
 	)
 )

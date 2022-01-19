@@ -3,23 +3,40 @@ import s2bLogo from '../pages/assets/bomb2.png';
 import { BellIcon, ChatIcon, ChevronDownIcon, HomeIcon, UserGroupIcon, ViewGridIcon } from '@heroicons/react/solid';
 import { FlagIcon, PlayIcon, SearchIcon, ShoppingCartIcon } from "@heroicons/react/outline";
 import HeaderIcon from "./HeaderIcon";
-import Link from "next/link";
-import { useRouter } from "next/router";
+import { useStore } from "react-redux";
+import { useState } from "react";
 
-function Header({ session }) {
-    const router = useRouter();
+function Header() {
+    const [login, setLogin] = useState(false);
+	const [data, setData] = useState({});
+	const [picture, setPicture] = useState(null);
+    const store = useStore()
+    const state = store.getState()
+
+    //console.log('Header '+JSON.stringify(state.nextState.nextState.users[0].accessToken))
+    const url = state.addUser.users[0].picture.data.url
+    const access = JSON.stringify(state.nextState.nextState.users[0].accessToken)
+    const session = JSON.stringify(state.nextState.nextState.users[0])
+
+    const signOut = () => {
+        setLogin(false);
+        setData({});
+        setPicture("");
+        return logoutAuth;
+
+    };
 
     if (session) {
-        console.log('header user is' + user)
+        //console.log('header user is' + user)
         return (
             <>
-                {user?.isLoggedIn === false && (
+                {/*user?.isLoggedIn === false && (
                     <li>
                         <Link href="/login">
                             <a>Login</a>
                         </Link>
                     </li>
-                )}
+                )*/}
                 {//user?.isLoggedIn === true && (
                     <div className='sticky top-0 z-50 bg-white flex items-center p-2 lg:px-5 shadow-md'>
                         <div className='flex items-center'>
@@ -40,7 +57,7 @@ function Header({ session }) {
                             </div>
                         </div>
                         <div className="flex items-center sm:space-x-2 justify-end">
-                            <Image onClick={signOut} className="rounded-full cursor-pointer" src={session.image}
+                            <Image onClick={signOut} className="rounded-full cursor-pointer" src={url}
                                 width={40} height={40} layout="fixed" alt='profile_pic' />
                             <p className="whitespace-nowrap font-semibold pr-3">{session.name}</p>
                             <ViewGridIcon className="icon" />

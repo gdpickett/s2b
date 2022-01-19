@@ -15,8 +15,8 @@ import { ADD_USER } from "../redux/ActionTypes";
 import { USERS } from '../shared/users';
 
 //const user = fbObject;
-export default function Home({ state, posts }) {
-    console.log('session home-ssr' + state)
+export default function Home({ props, posts }) {
+    console.log('session home-ssr' + props)
     //console.log(fbObject)
     return (
         <>
@@ -28,7 +28,7 @@ export default function Home({ state, posts }) {
                 </Head>
                 <Header />
                 <main className='flex' >
-                    <Sidebar session={State} />
+                    {/*<Sidebar session={state} />*/}
                     <Feed session={state} posts={posts} />
                     <Widgets />
                 </main>
@@ -57,6 +57,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => ({ req, re
     //store.dispatch({ type: 'TICK', payload: 'was set in other page' });
     const initialState = {
         users: USERS,
+        //pictures: PICTURES
     };
     const iState = initialState
     store.dispatch({ type: ADD_USER, payload: iState });
@@ -65,7 +66,8 @@ export const getServerSideProps = wrapper.getServerSideProps(store => ({ req, re
     const user = store.user;
     //console.log('Home-ssr store ' + JSON.stringify(store))
     const posts = getDocs(collection(db, 'posts'));
-
+    const session = store
+    console.dir('dir picture '+user.picture)
     /*
     const docs = posts.docs.map((post) => ({
         id: post.id,
@@ -90,7 +92,7 @@ export const getServerSideProps = wrapper.getServerSideProps(store => ({ req, re
     return {
         props: {
             user: store.users,
-            session: store.users,
+            session: session,
             //posts: docs
             //posts: posts
         },
