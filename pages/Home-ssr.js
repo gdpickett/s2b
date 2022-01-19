@@ -60,23 +60,23 @@ export const getServerSideProps = wrapper.getServerSideProps(store => ({ req, re
         //pictures: PICTURES
     };
     const iState = initialState
-    store.dispatch({ type: ADD_USER, payload: iState });
-	console.log('2. InitialState'+initialState);
+    store.dispatch({ type: 'ADD_USER', payload: initialState});
+	//console.log('2. InitialState'+initialState);
 
-    const user = store.user;
-    //console.log('Home-ssr store ' + JSON.stringify(store))
+    const user = store.users;
+    
     const posts = getDocs(collection(db, 'posts'));
-    const session = store
-    console.dir('dir picture '+user.picture)
-    /*
+    //const session = store
+    //console.dir('dir picture '+user.picture)
+    
     const docs = posts.docs.map((post) => ({
         id: post.id,
         ...post.data(),
         timestamp: null,
-    }));*/
+    }));
 
     //console.log('session homessr' + session)
-
+    /*
     if (user === undefined) {
         res.setHeader("location", "/index");
         res.statusCode = 302;
@@ -84,17 +84,15 @@ export const getServerSideProps = wrapper.getServerSideProps(store => ({ req, re
         return {
             props: {
                 user: { isLoggedIn: false, login: "", picture: "" },
-                posts: {}
+                posts: docs
             },
         };
-    }
+    }*/
 
     return {
         props: {
-            user: store.users,
-            session: session,
-            //posts: docs
-            //posts: posts
+            user: user,
+            posts: docs
         },
     }
 });

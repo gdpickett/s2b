@@ -18,7 +18,7 @@ const Home = ({ user, props, users, posts, req, res }) => {
 	const [picture, setPicture] = useState(null);
 
 	const store = useStore()
-	const session = ''
+	let session = ''
 	
 	useEffect(() => {
 		if (login === true) {
@@ -50,12 +50,12 @@ const Home = ({ user, props, users, posts, req, res }) => {
 
 	//if (req.session.get("user") === undefined) {
 	//console.log('props '+session)
-	
+	/*
 	if (!session) {
 		//res.redirect("/restricted");
 		console.log('User restricted')
 		return <FacebookLoginComponent callback={setLogin, setData, setPicture} />
-	}
+	}*/
 	session= store.getState()
 	return (
 		<div className='h-screen bg-gray-100 overflow-hidden'>
@@ -173,6 +173,7 @@ export const getStaticProps = wrapper.getStaticProps(store => () => {
 
 	const user = initialState;
 
+	
 	return (
 
 		{
