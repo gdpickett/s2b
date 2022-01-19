@@ -12,7 +12,7 @@ import { ADD_USER } from '../redux/ActionTypes'
 import { fetchUsers, postComment } from '../redux/ActionCreators';
 import { connect, useStore } from 'react-redux'
 
-const Home = ({ user, props, users, posts, req, res }) => {
+const Home = ({ user, users, posts, req, res }) => {
 	const [login, setLogin] = useState(false);
 	const [data, setData] = useState({});
 	const [picture, setPicture] = useState(null);
@@ -50,12 +50,12 @@ const Home = ({ user, props, users, posts, req, res }) => {
 
 	//if (req.session.get("user") === undefined) {
 	//console.log('props '+session)
-	/*
+	
 	if (!session) {
 		//res.redirect("/restricted");
 		console.log('User restricted')
 		return <FacebookLoginComponent callback={setLogin, setData, setPicture} />
-	}*/
+	}
 	session= store.getState()
 	return (
 		<div className='h-screen bg-gray-100 overflow-hidden'>

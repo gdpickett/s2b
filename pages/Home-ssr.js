@@ -28,7 +28,7 @@ export default function Home({ props, posts }) {
                 </Head>
                 <Header />
                 <main className='flex' >
-                    {/*<Sidebar session={state} />*/}
+                    <Sidebar session={state} />
                     <Feed session={state} posts={posts} />
                     <Widgets />
                 </main>
