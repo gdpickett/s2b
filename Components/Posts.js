@@ -11,29 +11,26 @@ const Posts = ({ posts }) => {
 
     return (
         <div key='posts'>
-
             {error && <strong>Error: {JSON.stringify(error)}</strong>}
             {loading && <span>Posts: Loading...</span>}
-            {realtimePosts ? 
+            {realtimePosts ?
                 realtimePosts.docs.map((post) => (
+                    <>
+                        <Post key={post.key} name={post.data().name} message={post.data().message} email={post.data().email}
+                            image={post.data().image} postImage={post.data().postImage} timestamp={post.data().timestamp} />
+                    </>
+                ))
+                :
+                posts ?
+                    posts.map((post) => {
                         <>
                             <Post key={post.key} name={post.data().name} message={post.data().message} email={post.data().email}
                                 image={post.data().image} postImage={post.data().postImage} timestamp={post.data().timestamp} />
                         </>
-                    ))
-                     : 
-            posts ?
-                posts.map((post) => {
-                <>
-                    <Post key={post.key} name={post.data().name} message={post.data().message} email={post.data().email}
-                        image={post.data().image} postImage={post.data().postImage} timestamp={post.data().timestamp} />
-                </>
                     })
                     :
                     <br />
             }
-
-
         </div>
     )
 }

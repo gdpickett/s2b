@@ -12,20 +12,6 @@ import { ADD_USER } from '../redux/ActionTypes'
 import { fetchUsers, postComment } from '../redux/ActionCreators';
 import { connect, useStore } from 'react-redux'
 
-const mapStateToProps = state => {
-	return {
-		users: state.users,
-	};
-};
-
-const mapDispatchToProps = {
-	//postComment: (campsiteId, rating, author, text) => (postComment(campsiteId, rating, author, text)),
-	fetchUsers: () => (fetchUsers()),
-	//resetFeedbackForm: () => (actions.reset('feedbackForm')),
-	//postFeedback: (feedback) => postFeedback(feedback),
-	//postFeedback: (firstName, lastName, phoneNum, email, agree, contactType, feedback) => postFeedback(firstName, lastName, phoneNum, email, agree, contactType, feedback),
-};
-
 const Home = ({ user, props, users, posts, req, res }) => {
 	const [login, setLogin] = useState(false);
 	const [data, setData] = useState({});
@@ -36,9 +22,10 @@ const Home = ({ user, props, users, posts, req, res }) => {
 	
 	useEffect(() => {
 		if (login === true) {
-			session = JSON.stringify(user.users);  
+			//session = JSON.stringify(user.users); 
+			store.dispatch({ type: 'ADD_USER', payload: initialState }); 
+			
 		}
-
 	});
 
 	/*
@@ -69,7 +56,7 @@ const Home = ({ user, props, users, posts, req, res }) => {
 		console.log('User restricted')
 		return <FacebookLoginComponent callback={setLogin, setData, setPicture} />
 	}
-
+	session= store.getState()
 	return (
 		<div className='h-screen bg-gray-100 overflow-hidden'>
 			<Head>

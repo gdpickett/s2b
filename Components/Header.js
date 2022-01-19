@@ -5,6 +5,7 @@ import { FlagIcon, PlayIcon, SearchIcon, ShoppingCartIcon } from "@heroicons/rea
 import HeaderIcon from "./HeaderIcon";
 import { useStore } from "react-redux";
 import { useState } from "react";
+import Link from "next/link";
 
 function Header() {
     const [login, setLogin] = useState(false);
@@ -30,14 +31,14 @@ function Header() {
         //console.log('header user is' + user)
         return (
             <>
-                {/*user?.isLoggedIn === false && (
+                {access === false && (
                     <li>
                         <Link href="/login">
                             <a>Login</a>
                         </Link>
                     </li>
-                )*/}
-                {//user?.isLoggedIn === true && (
+                )}
+                {//access === true && (
                     <div className='sticky top-0 z-50 bg-white flex items-center p-2 lg:px-5 shadow-md'>
                         <div className='flex items-center'>
                             <Image src={s2bLogo} alt='s2bLogo' width='40' height='40' layout='fixed' />
