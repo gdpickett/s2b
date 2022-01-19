@@ -1,8 +1,8 @@
 import Head from 'next/head'
-import Header from '../components/Header'
-import Sidebar from '../components/Sidebar'
-import Feed from '../components/Feed'
-import Widgets from '../components/Widgets'
+import Header from '../Components/Header'
+import Sidebar from '../Components/Sidebar'
+import Feed from '../Components/Feed'
+import Widgets from '../Components/Widgets'
 import {  useState } from 'react'
 import { wrapper } from '../redux/store'
 import { initialState } from '../redux/reducer'
@@ -27,7 +27,7 @@ const Homesr = ({ user, props, users, posts, req, res }) => {
 			</Head>
 			<Header />
 			<main className='flex' >
-				<Sidebar session={session} />{/**/}
+				<Sidebar session={session} />
 				<Feed session={session} posts={posts} />
 				<Widgets />
 			</main>

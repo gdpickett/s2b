@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import Head from 'next/head'
-import Header from '../components/Header'
-import Sidebar from '../components/Sidebar'
-import Feed from '../components/Feed'
-import Widgets from '../components/Widgets'
+import Header from '../Components/Header'
+import Sidebar from '../Components/Sidebar'
+import Feed from '../Components/Feed'
+import Widgets from '../Components/Widgets'
 import { db } from '../firebase';
 import { collection, getDocs } from "firebase/firestore";
 //import fbObject from '../shared/users.js'
