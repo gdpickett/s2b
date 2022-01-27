@@ -1,10 +1,11 @@
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import FacebookLogin from "react-facebook-login";
 import { connect, useStore } from "react-redux";
 import glam from '../pages/assets/bomb-glam.png';
 
-function FacebookLoginComponent({ session }, props) {
+function FacebookLoginComponent() {
     const [login, setLogin] = useState(false);
     const [data, setData] = useState({});
     const [picture, setPicture] = useState("");
@@ -15,7 +16,7 @@ function FacebookLoginComponent({ session }, props) {
     const responseFacebook = useEffect((response) => {
         console.log(response);
         // Login failed
-        if(!response) return;
+        if (!response) return;
         if (response.status === "unknown") {
             //alert("Login failed!");
 
@@ -41,7 +42,7 @@ function FacebookLoginComponent({ session }, props) {
             //props.callback = JSON.stringify(response);
             return response;
         }
-    },[store, data, login]
+    }, [store, data, login]
     );
 
     const logout = () => {
@@ -60,15 +61,26 @@ function FacebookLoginComponent({ session }, props) {
 
 
             {!login && (
-                <FacebookLogin
-                    appId="622758242165850"
-                    autoLoad={false}
-                    fields="name,email,picture"
-                    scope="public_profile,email,user_friends"
-                    callback={responseFacebook}
-                    icon="fa-facebook"
-
-                />
+                <>
+                    <FacebookLogin
+                        appId="622758242165850"
+                        autoLoad={false}
+                        fields="name,email,picture"
+                        scope="public_profile,email,user_friends"
+                        callback={responseFacebook}
+                        icon="fa-facebook"
+                    />
+                    <br />
+                    <div className="flex items-center">
+                        <p>
+                            You can only login if you have a test account
+                        </p>
+                        <br />
+                        <p className='text-blue-400 flex items-center relative'>
+                            <Link href='Home-sr'>View Demo</Link>
+                        </p>
+                    </div>
+                </>
             )}
 
             {/*login && (
