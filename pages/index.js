@@ -11,6 +11,7 @@ import { initialState } from '../redux/reducer'
 import { ADD_USER } from '../redux/ActionTypes'
 import { fetchUsers, postComment } from '../redux/ActionCreators';
 import { connect, useStore } from 'react-redux'
+import Link from 'next/link'
 
 const Home = ({ user, users, posts, req, res }) => {
 	const [login, setLogin] = useState(false);
@@ -85,6 +86,7 @@ const Home = ({ user, users, posts, req, res }) => {
 					</div>
 				</div>
 			)}
+			<Link href='./policy.js' >Privacy</Link>
 		</div>
 	);
 }
